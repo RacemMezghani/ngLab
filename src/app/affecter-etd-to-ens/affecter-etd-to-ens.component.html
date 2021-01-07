@@ -1,0 +1,76 @@
+
+<div class="container">
+
+  <form [formGroup]="form" *ngIf="!!form" (ngSubmit)="onSubmit()" class="form" fxLayout="column">
+    <mat-form-field>
+      <mat-select placeholder="etudiant" formControlName="etudiant" [(ngModel)]="Vetudiant">
+        <mat-option *ngFor="let member of etudiants" [value]="member.id">
+          {{member.nom+' '+member.prenom}}
+        </mat-option>
+      </mat-select>
+
+    </mat-form-field>
+
+
+    <mat-form-field >
+      <mat-select placeholder="encadrant" formControlName="encadrant" [(ngModel)]="Vencadrant">
+        <mat-option *ngFor="let member of enseignants" [value]="member.id">
+          {{member.nom+' '+member.prenom}}
+        </mat-option>
+      </mat-select>
+
+    </mat-form-field>
+
+
+
+
+
+    <!--
+        <mat-form-field>
+          <input matInput placeholder="type" formControlName="type_mbr">
+        </mat-form-field>
+    -->
+    <div class="form-element">
+      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="form.invalid">Submit</button>
+    </div>
+
+  </form>
+</div>
+
+
+<br>
+<table mat-table [dataSource]="etudiants" class="mat-elevation-z8 w-100-p">
+ <!-- <ng-container matColumnDef="id">
+    <th mat-header-cell class="px-12" *matHeaderCellDef> ID</th>
+
+      <td mat-cell class="px-12" *matCellDef="let element"> {{element.id }}
+      </td>
+
+  </ng-container>
+-->
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="nomEtd">
+    <th mat-header-cell class="px-12" *matHeaderCellDef> Etudiant</th>
+
+      <td mat-cell class="px-12" *matCellDef="let element"> {{element.nom}} {{element.prenom}}
+      </td>
+
+
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="nomEns">
+    <th mat-header-cell class="px-12" *matHeaderCellDef> Encadrant</th>
+
+    <td mat-cell class="px-12" *matCellDef="let element">
+      {{element.encadrant?.nom}} {{element.encadrant?.prenom}}
+      {{element.encadrant==null ? 'None' : null}}
+     </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderCellDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+

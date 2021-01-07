@@ -1,0 +1,35 @@
+<div class="container">
+
+  <h4>{{isFormInEditMode() ? 'Edit Tool' : 'Create New Tool'}}</h4>
+
+  <form [formGroup]="form" *ngIf="!!form" (ngSubmit)="onSubmit()" class="form" fxLayout="column">
+
+    <mat-form-field>
+      <input matInput placeholder="titre" formControlName="titre">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="type" formControlName="type">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="lien" formControlName="lien">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="sourcePdf" formControlName="sourcePdf">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="dateApparition" type="date" formControlName="dateApparition">
+    </mat-form-field>
+
+
+
+
+    <div class="form-element">
+      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="form.invalid">Submit</button>
+    </div>
+
+  </form>
+</div>
