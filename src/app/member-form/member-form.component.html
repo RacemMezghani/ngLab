@@ -1,102 +1,133 @@
-<div class="container">
-
-  <h4>{{isFormInEditMode() ? 'Edit Member' : 'Create New Member'}}</h4>
-
-  <form [formGroup]="form" *ngIf="!!form" (ngSubmit)="onSubmit()" class="form" fxLayout="column">
-
-    <mat-form-field>
-      <input matInput placeholder="cin" formControlName="cin">
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput placeholder="nom" formControlName="nom">
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput placeholder="prenom" formControlName="prenom">
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput placeholder="cv" formControlName="cv">
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput placeholder="photo" formControlName="photo">
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput placeholder="password" formControlName="password">
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput placeholder="dateNaissance" type="date" formControlName="dateNaissance">
-    </mat-form-field>
-
-    <mat-form-field>
-    <input matInput placeholder="email" formControlName="email">
-  </mat-form-field>
 
 
-    <!-- Etudiant
-     //Etudiant
-  dateInscription: Date;
-  sujet : string;
-  diplome: string;
-
-  //Enseignant
-  etablissement: string;
-  grade :string;
-     -->
-
-      <mat-form-field *ngIf="type_mbr=='etudiant'|| item?.type=='etudiant'">
-        <input matInput placeholder="dateInscription" type="date" formControlName="dateInscription">
-      </mat-form-field>
-
-      <mat-form-field *ngIf="type_mbr=='etudiant'|| item?.type=='etudiant'">
-        <input matInput placeholder="sujet" formControlName="sujet">
-      </mat-form-field>
-
-      <mat-form-field *ngIf="type_mbr=='etudiant'|| item?.type=='etudiant'">
-        <input matInput placeholder="diplome" formControlName="diplome">
-      </mat-form-field>
-
-    <mat-form-field *ngIf="type_mbr=='etudiant'|| item?.type=='etudiant'">
-      <input disabled matInput placeholder="encadrant" [value]="item?.encadrant!=null ?item.encadrant.nom+' ' +item.encadrant.prenom: 'None'">
-    </mat-form-field>
-
-<!--
-    <mat-form-field *ngIf="type_mbr=='etudiant' || item.type=='etudiant' && item.encadrant== null">
-      <mat-select (selectionChange)="selectedValue($event)" placeholder="encadrant" formControlName="encadrant">
-      <mat-option *ngFor="let member of dataSource" [value]="member.type=='enseignant' ? member.id : null">
-        {{member.type=='enseignant' ? member.nom+' '+member.prenom : null}}
-      </mat-option>
-      </mat-select>
-
-    </mat-form-field>
--->
-
-      <mat-form-field *ngIf="type_mbr=='enseignant'|| item?.type=='enseignant'">
-        <input matInput placeholder="etablissement" formControlName="etablissement">
-      </mat-form-field>
-      <mat-form-field *ngIf="type_mbr=='enseignant'|| item?.type=='enseignant'">
-        <input matInput placeholder="grade" formControlName="grade">
-      </mat-form-field>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
 
 
 
 
 
+<div class="container register">
+  <div  class="row">
+
+    <div class="col-md-9 register-right">
 
 
 
-<!--
-    <mat-form-field>
-      <input matInput placeholder="type" formControlName="type_mbr">
-    </mat-form-field>
--->
-    <div class="form-element">
-      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="form.invalid">Submit</button>
+
+      <h3 class="register-heading">{{isFormInEditMode() ? 'Edit Member' : 'Create New Member'}}</h3>
+
+
+      <form  [formGroup]="form" *ngIf="!!form" (ngSubmit)="onSubmit()" class="form">
+        <div style="width: 100%" class="row register-form">
+          <div  style="margin-left: auto;margin-right: auto" class="col-md-7"><small class="text-danger">{{msg}}</small></div>
+
+          <div class="col-md-6" >
+
+            <mat-form-field >
+              <input matInput placeholder="Nom" formControlName="nom">
+
+            </mat-form-field>
+
+            <mat-form-field >
+              <input matInput placeholder="Cin" disabled formControlName="cin">
+
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6" >
+
+            <mat-form-field >
+              <input matInput placeholder="Prenom" formControlName="prenom">
+
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Email"  type="email"  formControlName="email">
+            </mat-form-field>
+
+          </div>
+
+          <div class="col-md-6">
+
+
+            <mat-form-field >
+              <input matInput placeholder="Photo" formControlName="photo">
+            </mat-form-field>
+            <mat-form-field >
+              <input matInput placeholder="Password" type="password" formControlName="password">
+            </mat-form-field>
+
+
+
+
+            <mat-form-field *ngIf="type_mbr=='etudiant'|| item?.type=='etudiant'">
+              <input matInput placeholder="Sujet" formControlName="sujet">
+            </mat-form-field>
+
+
+
+            <mat-form-field *ngIf="type_mbr=='etudiant'|| item?.type=='etudiant'">
+              <input matInput placeholder="Diplome" formControlName="diplome">
+            </mat-form-field>
+
+            <mat-form-field *ngIf="type_mbr=='enseignant'|| item?.type=='enseignant'">
+              <input matInput placeholder="Etablissement" formControlName="etablissement">
+            </mat-form-field>
+          </div>
+
+
+
+          <div class="col-md-6" >
+
+            <mat-form-field >
+              <input matInput placeholder="Cv" formControlName="cv">
+
+            </mat-form-field>
+            <mat-form-field >
+              <input matInput [matDatepicker]="picker" placeholder="Your birthday" formControlName="dateNaissance" required>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+
+            </mat-form-field>
+
+
+            <mat-form-field  *ngIf="type_mbr=='etudiant'|| item?.type=='etudiant'">
+              <input matInput [matDatepicker]="picker" placeholder="Date Inscription" formControlName="dateInscription" required>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+
+            </mat-form-field>
+
+
+
+
+            <mat-form-field *ngIf="type_mbr=='enseignant'|| item?.type=='enseignant'">
+              <input matInput placeholder="Grade" formControlName="grade">
+            </mat-form-field>
+
+
+            <mat-form-field *ngIf="type_mbr=='etudiant'|| item?.type=='etudiant'">
+              <input disabled matInput placeholder="Encadrant" [value]="item?.encadrant!=null ?item.encadrant.nom+' ' +item.encadrant.prenom: 'None'">
+            </mat-form-field>
+
+            <button style="border-radius: 13%;margin-left: -15%;padding: .5%" mat-raised-button color="primary" type="submit" class="button" [disabled]="form.invalid">Submit</button>
+
+
+          </div>
+
+        </div>
+      </form>
+
+
+
+
+
+
     </div>
+  </div>
 
-  </form>
 </div>

@@ -6,6 +6,8 @@ import {ConfirmDialogComponent} from "../../@root/confirm-dialog/confirm-dialog.
 import {takeUntil} from "rxjs/operators";
 import { Pub } from 'src/models/pub.model';
 import {Member} from "../../models/member.model";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+
 
 @Component({
   selector: 'app-pub-list',
@@ -13,14 +15,18 @@ import {Member} from "../../models/member.model";
   styleUrls: ['./pub-list.component.scss']
 })
 export class PubListComponent implements OnInit {
-
+  chosenYearDate: Date;
   protected _onDestroy = new Subject<void>();
 
   displayedColumns: string[] = ['id', 'titre', 'type', 'sourcePdf', 'lien', 'dateApparition', 'pub', 'actions'];
   dataSource: Pub[] = [];
-  dataSource1: Member;dataSource2: Member;
+  form: FormGroup;
+  item: Pub;
   a: Array<Member>;
   e: any;
+  pubAuthors: any = {};
+
+  objectToSubmit: string[]=[];
 
   constructor(
     private memberService: MemberService,
@@ -37,28 +43,62 @@ export class PubListComponent implements OnInit {
   ngOnInit(): void {
     this.fetchDataSource();
    // this.fetchDataSource1(this.e);
+    this.initForm(null);
 
   }
-  fetchDataSource2(id: any): void {
-    this.dataSource2=this.fetchDataSource1(id);
+  private initForm(item: Pub): void {
+
+    this.form = new FormGroup({
+
+      type: new FormControl(item?.type, []),
+      dateApparition: new FormControl(item?.dateApparition, []),
+    });
+  }
+
+  filterType(t : string) {
+    this.memberService.getAllPub()
+      .then(pubs => this.dataSource = pubs['_embedded']['publicationBeanList'].filter(({ type }) =>
+        type === t,
+        console.log(t),
+
+      ));
+
 
   }
 
 
-  fetchDataSource1(id: any): Member {
+  getPubAuthors(id: any): any {
+    if(!!this.pubAuthors[id]) {
+      return this.pubAuthors[id];
+    }
     this.memberService.getAutByPub(id).then(data => {
-      this.dataSource1 = data;
+        this.pubAuthors[id] = data;
 
     });
-    return this.dataSource1;
+
   }
 
+  fetchDataSource(): void {
+
+    this.memberService.getAllPub().then(data => {
+      this.dataSource = data['_embedded']['publicationBeanList'];
+      this.dataSource.forEach(element => this.getPubAuthors(element.id));
+      this.dataSource.forEach(element => {
+        if(this.objectToSubmit?.includes(element.type)==false){
+        this.objectToSubmit.push(element.type)};
+      console.log(this.objectToSubmit)});})
+
+
+    }
+
+
+/*
   fetchDataSource(): void {
     this.memberService.getAllPub().then(data => {
       this.dataSource = data['_embedded']['publicationBeanList'];
     });
   }
-
+*/
   onRemoveAccount(id: any): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       hasBackdrop: true,
@@ -75,6 +115,23 @@ export class PubListComponent implements OnInit {
     });
   }
 
+  onSubmit(): void {
 
+    this.ResearchPub();
+
+  }
+
+
+  ResearchPub() {
+
+    this.item = this.form.value;
+    if (this.item != null) {
+      if(this.e=='tous'){
+        this.fetchDataSource();
+      }
+      else{
+this.filterType(this.e);}
+    }
+  }
 
 }

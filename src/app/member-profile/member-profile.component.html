@@ -1,0 +1,187 @@
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<body>
+<div class="container emp-profile">
+  <form method="post">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="profile-img" style="width: 150px;height: 110px;margin-left: 200px">
+          <img [src]="item?.photo!=null ? item?.photo :'assets/img/a1.jpg'"
+               alt="photo"  />
+
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="profile-head">
+          <h2>
+            {{item?.prenom+' '+item?.nom}}
+          </h2>
+          <h3>
+            {{item?.type}}
+          </h3>
+
+          <mat-tab-group style="margin-top:12%" class="nav nav-tabs" id="myTab">
+            <mat-tab   label="About">
+<div style="overflow: hidden; font-size: 11px;margin-top: 10px" >
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>CIN</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p>{{item?.cin}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Name</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p>{{item?.prenom+' '+item?.nom}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Email</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p>{{item?.email}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Birthday</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p>{{item?.dateNaissance}}</p>
+                  </div>
+                </div>
+
+  <div *ngIf="item?.type=='etudiant'" class="row">
+    <div class="col-md-6">
+      <label>Date Inscription</label>
+    </div>
+    <div class="col-md-6">
+      <p>{{item?.dateInscription}}</p>
+    </div>
+  </div>
+  <div *ngIf="item?.type=='etudiant'" class="row">
+    <div class="col-md-6">
+      <label>Diplome</label>
+    </div>
+    <div class="col-md-6">
+      <p>{{item?.diplome}}</p>
+    </div>
+  </div>
+
+  <div *ngIf="item?.type=='etudiant'" class="row">
+    <div class="col-md-6">
+      <label>Sujet</label>
+    </div>
+    <div class="col-md-6">
+      <p>{{item?.sujet}}</p>
+    </div>
+  </div>
+
+  <div *ngIf="item?.type=='etudiant'" class="row">
+    <div class="col-md-6">
+      <label>Encadrant</label>
+    </div>
+    <div class="col-md-6">
+      <p>{{item?.encadrant?.prenom+' '+item?.encadrant?.nom}}</p>
+    </div>
+  </div>
+
+  <div *ngIf="item?.type=='enseignant'" class="row">
+    <div class="col-md-6">
+      <label>Etablissement</label>
+    </div>
+    <div class="col-md-6">
+      <p>{{item?.etablissement}}</p>
+    </div>
+  </div>
+
+  <div *ngIf="item?.type=='enseignant'" class="row">
+    <div class="col-md-6">
+      <label>Grade</label>
+    </div>
+    <div class="col-md-6">
+      <p>{{item?.grade}}</p>
+    </div>
+  </div>
+
+  <div *ngIf="item?.type=='enseignant'" class="row">
+    <div class="col-md-6">
+      <label>Etudiants(encadré)</label>
+    </div>
+
+    <div  class="col-md-6">
+
+      <mat-list style=" padding: 0;margin: -3px; "  role="list" *ngFor="let e of etudiants">
+        <mat-list-item style=" height: 5%;padding: 0;margin-left: -10px;font-size: 12px"  role="listitem">*{{e?.prenom+' '+e?.nom}}
+
+        </mat-list-item>
+
+      </mat-list>{{etudiants.length==0 ? 'None': null}}
+    </div>
+
+
+  </div>
+
+
+</div>
+
+
+            </mat-tab>
+
+            <mat-tab  label="Publications">
+              <div style="padding: 10px; font-size: small" *ngFor="let p of pubs">*{{p.titre}}
+
+              </div>
+              {{pubs.length==0 ? 'None': null}}
+            </mat-tab>
+            <mat-tab label="Tools">
+
+              <div style="padding: 10px; font-size: small" *ngFor="let t of tools">*{{t.nom}}
+
+              </div>
+              {{tools.length==0 ? 'None': null}}
+            </mat-tab>
+            <mat-tab  label="Events">
+              <div style="padding: 10px; font-size: small" *ngFor="let e of events">*{{e.titre}}
+
+              </div>
+              {{events.length==0 ? 'None': null}}
+            </mat-tab>
+          </mat-tab-group>
+          <!--<p class="proile-rating">RANKINGS : <span>8/10</span></p>-->
+
+        </div>
+      </div>
+      <div class="col-md-2">
+        <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <!--  <div class="profile-work">
+            <p>WORK LINK</p>
+            <a href="">Website Link</a><br/>
+            <a href="">Bootsnipp Profile</a><br/>
+            <a href="">Bootply Profile</a>
+            <p>SKILLS</p>
+            <a href="">Web Designer</a><br/>
+            <a href="">Web Developer</a><br/>
+            <a href="">WordPress</a><br/>
+            <a href="">WooCommerce</a><br/>
+            <a href="">PHP, .Net</a><br/>
+          </div>-->
+      </div>
+      <div class="col-md-8">
+        <div >
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+</body>

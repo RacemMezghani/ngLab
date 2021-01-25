@@ -1,0 +1,153 @@
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+
+
+
+
+
+<div class="container register">
+  <div class="row">
+    <div class="col-md-3 register-left">
+    <ng-template [ngIf]="isFormInEditMode()">
+      <img src="assets/img/logo_white.png" alt=""/>
+      <h3>My account</h3>
+    </ng-template>
+    <ng-template [ngIf]="!isFormInEditMode()">
+
+      <img src="assets\img\logo_white.png" alt=""/>
+      <h3>Welcome</h3>
+      <strong style="margin-top: 57%;margin-right: 25px" class="float-right" >Existing member ? Login here</strong>
+      <input [routerLink]="['../../login']" type="submit" name="" value="Login"/><br/>
+
+    </ng-template>
+    </div>
+    <div class="col-md-9 register-right">
+      <ul *ngIf="isFormInEditMode()==false" class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link" id="home-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" id="profile-tab" data-toggle="tab"  role="tab" aria-controls="profile" aria-selected="false">Register</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+          <h3 class="register-heading">{{isFormInEditMode() ? 'Edit my information' : 'Register Member'}}</h3>
+
+
+          <form  [formGroup]="form" *ngIf="!!form" (ngSubmit)="onSubmit()" class="form">
+            <div style="width: 100%" class="row register-form">
+
+              <div  style="margin-left: auto;margin-right: auto" class="col-md-7"><small class="text-danger">{{msg}}</small></div>
+
+              <div class="col-md-6" >
+
+                <mat-form-field >
+                  <input matInput placeholder="Nom" formControlName="nom">
+
+                </mat-form-field>
+
+                <mat-form-field >
+                  <input matInput placeholder="Cin" disabled formControlName="cin">
+
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6"  >
+
+                <mat-form-field >
+                  <input matInput placeholder="Prenom" formControlName="prenom">
+
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput placeholder="Email"  type="email"  formControlName="email">
+                </mat-form-field>
+
+              </div>
+
+              <div class="col-md-6">
+
+
+                <mat-form-field >
+                  <input matInput placeholder="Photo" formControlName="photo">
+                </mat-form-field>
+                <mat-form-field >
+                  <input matInput placeholder="Password" type="password" formControlName="password">
+                </mat-form-field>
+
+
+
+
+                <mat-form-field *ngIf="type_mbr=='etudiant'|| item?.type=='etudiant'">
+                  <input matInput placeholder="Sujet" formControlName="sujet">
+                </mat-form-field>
+
+
+
+                <mat-form-field *ngIf="type_mbr=='etudiant'|| item?.type=='etudiant'">
+                  <input matInput placeholder="Diplome" formControlName="diplome">
+                </mat-form-field>
+
+                <mat-form-field *ngIf="type_mbr=='enseignant'|| item?.type=='enseignant'">
+                  <input matInput placeholder="Etablissement" formControlName="etablissement">
+                </mat-form-field>
+              </div>
+
+
+
+              <div class="col-md-6" >
+
+                <mat-form-field >
+                  <input matInput placeholder="Cv" formControlName="cv">
+
+                </mat-form-field>
+                <mat-form-field >
+                  <input matInput [matDatepicker]="picker" placeholder="Your birthday" formControlName="dateNaissance" required>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+
+                </mat-form-field>
+
+
+                <mat-form-field  *ngIf="type_mbr=='etudiant'|| item?.type=='etudiant'">
+                  <input matInput [matDatepicker]="picker" placeholder="Date Inscription" formControlName="dateInscription" required>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+
+                </mat-form-field>
+
+
+
+
+                <mat-form-field *ngIf="type_mbr=='enseignant'|| item?.type=='enseignant'">
+                  <input matInput placeholder="Grade" formControlName="grade">
+                </mat-form-field>
+
+
+                <mat-form-field *ngIf="type_mbr=='etudiant'|| item?.type=='etudiant'">
+                  <input disabled matInput placeholder="Encadrant" [value]="item?.encadrant!=null ?item.encadrant.nom+' ' +item.encadrant.prenom: 'None'">
+                </mat-form-field>
+
+                <input mat-raised-button *ngIf="isFormInEditMode()==false" type="submit" [disabled]="!form.valid" id="btnRegister" class="btn btn-info"  value="Register"/>
+                <input mat-raised-button *ngIf="isFormInEditMode()" type="submit" [disabled]="!form.valid" id="btnRegister" class="btn btn-info"  value="save"/>
+
+              </div>
+
+            </div>
+          </form>
+
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+
+</div>

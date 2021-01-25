@@ -1,0 +1,61 @@
+
+<div class="my-16" fxLayout="row" fxLayoutAlign="end center">
+  <button  routerLink="./create" mat-raised-button color="primary" >
+    <mat-icon class="s-24 mr-4">add</mat-icon>
+    <span class="username mx-6" fxHide fxShow.gt-sm>Create New </span>
+  </button>
+
+</div>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100-p">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell class="px-12" *matHeaderCellDef> ID</th>
+    <td mat-cell class="px-12" *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="titre">
+    <th mat-header-cell class="px-12" *matHeaderCellDef> Titre</th>
+    <td mat-cell class="px-12" *matCellDef="let element"> {{element.titre}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="lieu">
+    <th mat-header-cell class="px-12" *matHeaderCellDef> Lieu</th>
+    <td mat-cell class="px-12" *matCellDef="let element"> {{element.lieu}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="dateEvent">
+    <th mat-header-cell class="px-12" *matHeaderCellDef> dateEvent</th>
+    <td mat-cell class="px-12" *matCellDef="let element"> {{element.dateEvent | date :'d MMMM y'}} </td>
+  </ng-container>
+  <ng-container matColumnDef="participant">
+    <th mat-header-cell class="px-12" *matHeaderCellDef> Participant</th>
+    <td mat-cell class="px-12" *matCellDef="let element">
+<span *ngIf="!!pubAuthors[element.id]">
+{{pubAuthors[element.id]?.nom }} {{pubAuthors[element.id]?.prenom }}
+</span>
+
+      <span *ngIf="pubAuthors[element.id]==null">
+                <button mat-button color="primary" routerLink="./affecter" type="submit" class="button">affecter</button>
+
+</span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions" stickyEnd>
+    <th mat-header-cell class="px-12 w-120" *matHeaderCellDef></th>
+    <td mat-cell class="px-12 w-120" *matCellDef="let element">
+      <button mat-icon-button [routerLink]="element.id + '/edit'">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="onRemoveAccount(element.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+

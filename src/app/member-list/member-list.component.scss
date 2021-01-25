@@ -1,1 +1,68 @@
 table{width: 100%}
+.form .mat-form-field {
+  margin-left: 8px;
+}
+.form .form-element{
+  margin-left: 8px;
+  margin-right: 65px;
+}
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$app-primary: mat-palette($mat-indigo);
+$app-accent:  mat-palette($mat-pink, A200, A100, A400);
+
+$app-theme: mat-light-theme($app-primary, $app-accent);
+
+@mixin mix-app-theme($app-theme) {
+  $primary: map-get($app-theme, primary);
+  $accent: map-get($app-theme, accent);
+
+  .mat-button-toggle-group{
+    display: block;
+    background-color: mat-color($primary);
+    padding: 1px;border-radius: 7px;
+  }
+  .mat-button-toggle {
+
+    margin-left: 8px;
+    position: relative;
+    display: inline-block;border-radius: 7px;
+    border:mat-color($primary);
+
+
+    background-color: mat-color($primary);
+    color: mat-color($primary, default-contrast);
+  }
+
+  .mat-button-toggle-checked {
+    background-color:white;
+    color: mat-color($primary);
+  }
+}
+
+// Include the mixin
+@include mix-app-theme($app-theme);
+
+@import "../../@root/scss/root";
+
+
+  .toolbar-separator {
+    height: 20px;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.12);
+
+    @include media-breakpoint('xs') {
+      height: 20px;
+    }
+  }
+
+  .toolbar-button{
+    min-width: 64px;
+    height: 64px;
+
+    @include media-breakpoint('xs') {
+      height: 56px;
+    }
+  }

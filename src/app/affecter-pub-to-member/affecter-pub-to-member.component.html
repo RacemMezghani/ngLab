@@ -1,0 +1,33 @@
+
+<div class="container">
+
+  <form [formGroup]="form" *ngIf="!!form" (ngSubmit)="onSubmit()" class="form" fxLayout="column">
+    <mat-form-field >
+      <mat-select placeholder="pub" formControlName="pub" [(ngModel)]="Vpub">
+        <mat-option *ngFor="let pub of pubs" [value]="pub.id">
+          {{pub.titre}}
+        </mat-option>
+      </mat-select>
+
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="member" formControlName="member" [(ngModel)]="Vmember">
+        <mat-option *ngFor="let member of members" [value]="member.id">
+          {{member.nom+' '+member.prenom}}
+        </mat-option>
+      </mat-select>
+
+    </mat-form-field>
+    {{msg}}
+    <div class="form-element">
+
+      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="form.invalid">Submit</button>
+
+    <button mat-raised-button color="primary" type="submit" style="margin-left: 20px" routerLink="../pubs/"  class="button" >Retour</button>
+
+  </div>
+
+  </form>
+</div>
+

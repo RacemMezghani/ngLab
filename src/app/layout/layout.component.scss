@@ -5,7 +5,7 @@ mat-sidenav-container {
 
   mat-sidenav-content {
     mat-toolbar {
-      position: fixed
+      position: fixed;z-index: 5;
     }
   }
 }

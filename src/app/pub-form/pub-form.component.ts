@@ -9,7 +9,7 @@ import { Pub } from 'src/models/pub.model';
 @Component({
   selector: 'app-pub-form',
   templateUrl: './pub-form.component.html',
-  styleUrls: ['./pub-form.component.scss']
+  styleUrls: ['./bootstrap.min.css','./pub-form.component.scss']
 })
 export class PubFormComponent implements OnInit {
 
@@ -17,6 +17,7 @@ export class PubFormComponent implements OnInit {
   item: Pub;
   form: FormGroup;
   dataSource: Pub[] = [];
+
 
   selected: any;
   private selectedData: { text: string; value: any };
@@ -35,7 +36,6 @@ export class PubFormComponent implements OnInit {
 
     });
   }
-
 
 
   ngOnInit(): void {
@@ -69,9 +69,9 @@ export class PubFormComponent implements OnInit {
 
 
   onSubmit(): void {
-    const objectToSubmit: Member = {...this.item, ...this.form.value};
+    const objectToSubmit: Pub = {...this.item, ...this.form.value};
       console.log(objectToSubmit);
-      this.memberService.savePub(objectToSubmit).then(() => this.router.navigate(['./tools']));
+      this.memberService.savePub(objectToSubmit).then(() => this.router.navigate(['./pubs']));
   }
 
   isFormInEditMode(): boolean {

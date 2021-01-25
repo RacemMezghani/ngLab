@@ -8,10 +8,10 @@
     </mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="/dashboard">Dashboard</a>
-      <a mat-list-item routerLink="/members">Members</a>
-      <a mat-list-item routerLink="/tools">Tools</a>
-      <a mat-list-item routerLink="/articles">Articles</a>
-      <a mat-list-item routerLink="/events">Events</a>
+      <a mat-list-item routerLink="/members">Members({{members.length}})</a>
+      <a mat-list-item routerLink="/tools">Tools({{tools.length}})</a>
+      <a mat-list-item routerLink="/pubs">Publications({{pubs.length}})</a>
+      <a mat-list-item routerLink="/events">Events({{events.length}})</a>
     </mat-nav-list>
   </mat-sidenav>
   <!-- EO: Side nav-->
@@ -29,27 +29,63 @@
         <div fxFlex></div>
 
         <div class="toolbar-separator"></div>
+        <ng-template [ngIf]="item==null">
+          <button [matMenuTriggerFor]="userMenu" class="toolbar-button" mat-button>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <!--          <img class="avatar mr-0 mr-sm-16" [src]="user.photoURL">-->
+              <mat-icon>account_circle</mat-icon>
+              <span class="username mx-12" fxHide fxShow.gt-sm>Login</span>
+              <mat-icon class="s-16" fxHide.xs>keyboard_arrow_down</mat-icon>
+            </div>
+          </button>
+
+
+          <mat-menu #userMenu="matMenu" [overlapTrigger]="false">
+
+            <button routerLink="/" class="" mat-menu-item>
+              <mat-icon>account_box</mat-icon>
+              <span  >Admin</span>
+            </button>
+            <button routerLink="/member/login" class="" mat-menu-item>
+              <mat-icon>account_box</mat-icon>
+
+              <span >Member</span>
+
+            </button>
+
+          </mat-menu>
+        </ng-template>
+
+
+        <ng-template [ngIf]="item!=null">
         <button [matMenuTriggerFor]="userMenu" class="toolbar-button" mat-button>
           <div fxLayout="row" fxLayoutAlign="center center">
             <!--          <img class="avatar mr-0 mr-sm-16" [src]="user.photoURL">-->
             <mat-icon>account_circle</mat-icon>
-            <span class="username mx-12" fxHide fxShow.gt-sm>Houcem Chlegou</span>
+            <span class="username mx-12" fxHide fxShow.gt-sm>{{item1}}</span>
             <mat-icon class="s-16" fxHide.xs>keyboard_arrow_down</mat-icon>
           </div>
         </button>
 
+
         <mat-menu #userMenu="matMenu" [overlapTrigger]="false">
 
-          <button class="" mat-menu-item>
+          <button [routerLink]="['member', item,'profile']" class="" mat-menu-item>
             <mat-icon>account_box</mat-icon>
-            <span>Profile</span>
+            <span routerLink="/" >Profile</span>
           </button>
-          <button class="" mat-menu-item>
+          <button [routerLink]="['member', item,'edit']" class="" mat-menu-item>
+            <mat-icon>account_box</mat-icon>
+
+            <span  >My account</span>
+          </button>
+          <button routerLink="/"  (click)="logout()" class="" mat-menu-item>
             <mat-icon>exit_to_app</mat-icon>
-            <span>Logout</span>
+            <span  >Logout</span>
           </button>
 
         </mat-menu>
+        </ng-template>
       </div>
     </mat-toolbar>
 

@@ -1,0 +1,90 @@
+
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+
+
+
+      <div class="container register">
+        <div class="row">
+          <div class="col-md-3 register-left">
+            <img src="assets\img\logo_white.png" alt=""/>
+            <h3>Welcome</h3>
+
+            <strong style="margin-top: 40%;margin-right: 25px" class="float-right" >New member ? Register here</strong>
+            <label id="example-radio-group-label">Your are </label>
+            <br>
+            <mat-radio-group
+              aria-labelledby="example-radio-group-label"
+              class="example-radio-group"
+              [(ngModel)]="type_mbr">
+              <mat-radio-button style="margin-right: 10px" class="example-radio-button" *ngFor="let m of types" [value]="m">
+                {{m}}
+              </mat-radio-button>
+            </mat-radio-group>
+            <span title="select type first!">
+            <input type="submit"   [routerLink]="['../register/'+type_mbr]" name="" [disabled]="!type_mbr" value="Register"/><br/>
+            </span>
+          </div>
+          <div class="col-md-9 register-right">
+            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">Register</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <h3 class="register-heading">Member Login</h3>
+
+
+
+                <form  [formGroup]="form" *ngIf="!!form" (ngSubmit)="onSubmit()" class="form">
+                  <div style="width: 100%" class="row register-form">
+
+                    <div  style="margin-left: auto;margin-right: auto" class="col-md-7"><small class="text-danger">{{msg}}</small></div>
+
+                    <div class="col-md-7" style=" margin-right: auto;margin-left: auto;">
+
+
+
+                      <mat-form-field >
+                        <input matInput  placeholder="Email*" formControlName="email">
+
+                      </mat-form-field>
+<!--appearance="fill"-->
+                      <mat-form-field >
+                        <mat-label>Enter your password</mat-label>
+                        <input  formControlName="password" matInput [type]="hide ? 'password' : 'text'">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                      </mat-form-field>
+                      <input  type="submit" [disabled]="!form.valid" id="btnRegister" class="btn btn-info"  value="Login"/>
+
+                    </div>
+
+
+
+                  </div>
+                </form>
+
+
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+

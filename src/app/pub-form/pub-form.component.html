@@ -1,35 +1,70 @@
-<div class="container">
-
-  <h4>{{isFormInEditMode() ? 'Edit Tool' : 'Create New Tool'}}</h4>
-
-  <form [formGroup]="form" *ngIf="!!form" (ngSubmit)="onSubmit()" class="form" fxLayout="column">
-
-    <mat-form-field>
-      <input matInput placeholder="titre" formControlName="titre">
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput placeholder="type" formControlName="type">
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput placeholder="lien" formControlName="lien">
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput placeholder="sourcePdf" formControlName="sourcePdf">
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput placeholder="dateApparition" type="date" formControlName="dateApparition">
-    </mat-form-field>
 
 
 
 
-    <div class="form-element">
-      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="form.invalid">Submit</button>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+
+
+
+
+
+<div class="container register">
+  <div  class="row">
+
+    <div class="col-md-9 register-right">
+
+
+
+
+          <h3 class="register-heading">{{isFormInEditMode() ? 'Edit Pub' : 'Create New Pub'}}</h3>
+
+
+          <form  [formGroup]="form" *ngIf="!!form" (ngSubmit)="onSubmit()" class="form">
+            <div style="width: 100%" class="row register-form">
+
+              <div  style="margin-left: auto;margin-right: auto" class="col-md-7">
+
+                <mat-form-field>
+                  <input matInput placeholder="titre" formControlName="titre">
+                </mat-form-field>
+
+
+                <mat-form-field>
+                  <input matInput placeholder="type" formControlName="type">
+                </mat-form-field>
+
+                <mat-form-field>
+                  <input matInput placeholder="lien" formControlName="lien">
+                </mat-form-field>
+
+                <mat-form-field>
+                  <input matInput placeholder="sourcePdf" formControlName="sourcePdf">
+                </mat-form-field>
+
+                <mat-form-field>
+                  <input matInput  placeholder="dateApparition" type="date" formControlName="dateApparition">
+                </mat-form-field>
+
+
+                <button style="border-radius: 13%;margin-left: 40%;padding: .5%" mat-raised-button color="primary" type="submit" class="button" [disabled]="form.invalid">Submit</button>
+
+
+              </div>
+
+            </div>
+          </form>
+
+
+
+
+
+
     </div>
+  </div>
 
-  </form>
 </div>
